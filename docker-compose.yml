@@ -10,6 +10,5 @@ services:
   mongo:
     image: mongo
     environment:
-      - MONGO_INITDB_ROOT_USERNAME=phil
-      - MONGO_INITDB_ROOT_PASSWORD=thepassword
-      
+      MONGO_INITDB_ROOT_USERNAME: phil
+      MONGO_INITDB_ROOT_PASSWORD: pass
