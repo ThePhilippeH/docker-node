@@ -6,9 +6,15 @@ services:
       args:
         NODE_ENV: development
     volumes:
-      - ./:/app:ro
-      - /app/node_modules
+      - ./:/app:ro #sincs container to local drive
+      - /app/node_modules #annonymous volume
     environment:
       - NODE_ENV=development
+      - MONGO_USER=phil
+      - MONGO_PASSWORD=pass
+
     command: npm run dev
-    
+  mongo:
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: phil
+      MONGO_INITDB_ROOT_PASSWORD: pass

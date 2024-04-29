@@ -1,11 +1,18 @@
 const express = require("express");
 const mongoose = require("mongoose");//the db manager
+const { MONGO_USER, MONGO_PASSWORD, MONGO_IP, MONGO_PORT } = require("./config/config");
 
 const app = express();
 
-//connect to the db using the @mongo for ip address because of dns resolution
+const mongoURL = `mongodb://${MONGO_USER}:${MONGO_PASSWORD}@${MONGO_IP}:${MONGO_PORT}/?authSource=admin`;
+
+//connect to the db
 mongoose
-.connect("mongodb://phil:pass@mongo:27017/?authSource=admin")
+.connect(mongoURL, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+    useFindAndModify: false
+})
 .then(()=>{console.log("connected to the DB")})
 .catch((e)=>  {console.log("error connecting to the DB", e)});
 
