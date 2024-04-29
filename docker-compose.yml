@@ -12,3 +12,7 @@ services:
     environment:
       MONGO_INITDB_ROOT_USERNAME: phil
       MONGO_INITDB_ROOT_PASSWORD: pass
+    volumes:
+      - mongo-db:/data/db
+volumes:
+  mongo-db:
