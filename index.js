@@ -2,6 +2,8 @@ const express = require("express");
 const mongoose = require("mongoose");//the db manager
 const { MONGO_USER, MONGO_PASSWORD, MONGO_IP, MONGO_PORT } = require("./config/config");
 
+const boulderRouter = require("./routes/boulderRoutes");
+
 const app = express();
 
 const mongoURL = `mongodb://${MONGO_USER}:${MONGO_PASSWORD}@${MONGO_IP}:${MONGO_PORT}/?authSource=admin`;
@@ -17,7 +19,9 @@ setTimeout(connectWithRetry, 5000)}); //keep trying to connect every 5 seconds
 
 connectWithRetry();
 
-app.get("/", (req, res) => {res.send("wadup?")});
+app.get("/", (req, res) => {res.send("boulder?")});
+
+app.use("/api/v1/boulders", boulderRouter);
 
 const port = process.env.PORT || 3000; // Port 3000 is the default port
 
