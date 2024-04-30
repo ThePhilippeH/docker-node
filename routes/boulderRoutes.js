@@ -7,6 +7,10 @@ const router = express.Router();
 router.route('/')
     .get(boulderController.getAllBoulders)
     .post(boulderController.createBoulder);
+router.route('/:id')
+    .get(boulderController.getBoulderById)
+    .patch(boulderController.updateBoulder)
+    .delete(boulderController.deleteBoulder);
 router.route('/:name')
     .get(boulderController.getBoulderByName);
 router.route('/area/:area')

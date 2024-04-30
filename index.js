@@ -19,6 +19,8 @@ setTimeout(connectWithRetry, 5000)}); //keep trying to connect every 5 seconds
 
 connectWithRetry();
 
+app.use(express.json());
+
 app.get("/", (req, res) => {res.send("boulder?")});
 
 app.use("/api/v1/boulders", boulderRouter);
