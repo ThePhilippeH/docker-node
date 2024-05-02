@@ -2,7 +2,7 @@ const express = require("express");
 const mongoose = require("mongoose");//the db manager
 const redis = require("redis");
 const session = require("express-session");
-let RedisStore = require("connect-redis")(session) // Fix: Use the correct syntax to require the connect-redis package
+const RedisStore = require("connect-redis").default;
 
 const { MONGO_USER, MONGO_PASSWORD, MONGO_IP, MONGO_PORT, SESSION_SECRET, REDIS_URL, REDIS_PORT } = require("./config/config");
 
@@ -12,6 +12,7 @@ let redisClient = redis.createClient(
     port: REDIS_PORT
   }
 );
+
 
 const boulderRouter = require("./routes/boulderRoutes");
 const userRouter = require("./routes/userRoutes");
@@ -29,8 +30,8 @@ mongoose
 setTimeout(connectWithRetry, 5000)}); //keep trying to connect every 5 seconds
 }
 
+//TODO: FIX REDIS CONNECTION
 connectWithRetry();
-
 app.use(session({
   store: new RedisStore({ client: redisClient }),
   secret: SESSION_SECRET,
@@ -39,10 +40,9 @@ app.use(session({
     resave: false,
     saveUninitialized: false,
     httpOnly: true,
-    maxAge: 60000,
+    maxAge: 6000000,
   },
 }));
-
 
 app.use(express.json());
 

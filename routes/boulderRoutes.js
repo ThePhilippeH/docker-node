@@ -1,12 +1,14 @@
 const express = require('express');
 
 const boulderController = require('../controllers/boulderController');
-
+const protect = require('../middleware/authMiddleware');
 const router = express.Router();
+
 
 router.route('/')
     .get(boulderController.getAllBoulders)
-    .post(boulderController.createBoulder);
+    .post(protect.protect, boulderController.createBoulder);
+
 router.route('/:id')
     .get(boulderController.getBoulderById)
     .patch(boulderController.updateBoulder)
