@@ -6,10 +6,12 @@ const RedisStore = require("connect-redis").default;
 
 const { MONGO_USER, MONGO_PASSWORD, MONGO_IP, MONGO_PORT, SESSION_SECRET, REDIS_URL, REDIS_PORT } = require("./config/config");
 
+
 let redisClient = redis.createClient(
   {
     host: REDIS_URL,
-    port: REDIS_PORT
+    port: REDIS_PORT,
+    legacyMode: true
   }
 );
 
@@ -32,6 +34,8 @@ setTimeout(connectWithRetry, 5000)}); //keep trying to connect every 5 seconds
 
 //TODO: FIX REDIS CONNECTION
 connectWithRetry();
+
+app.enable("trust proxy"); 
 app.use(session({
   store: new RedisStore({ client: redisClient }),
   secret: SESSION_SECRET,
@@ -46,7 +50,10 @@ app.use(session({
 
 app.use(express.json());
 
-app.get("/", (req, res) => {res.send("boulder?")});
+app.get("/api/v1/", (req, res) => {
+  res.send("boulder?");
+  console.log("sipi");
+});
 
 app.use("/api/v1/users", userRouter);
 app.use("/api/v1/boulders", boulderRouter);

@@ -10,22 +10,22 @@ router.route('/')
     .post(protect.protect, boulderController.createBoulder);
 
 router.route('/:id')
-    .get(boulderController.getBoulderById)
-    .patch(boulderController.updateBoulder)
-    .delete(boulderController.deleteBoulder);
+    .get(protect.protect,boulderController.getBoulderById)
+    .patch(protect.protect,boulderController.updateBoulder)
+    .delete(protect.protect,boulderController.deleteBoulder);
 router.route('/:name')
-    .get(boulderController.getBoulderByName);
+    .get(protect.protect,boulderController.getBoulderByName);
 router.route('/area/:area')
-    .get(boulderController.getAllArea);
+    .get(protect.protect,boulderController.getAllArea);
 router.route('/:name/area/:area')
-    .get(boulderController.getBoulderByNameAndArea)
-    .patch(boulderController.updateByNameAndArea)
-    .delete(boulderController.deleteByNameAndArea);
+    .get(protect.protect,boulderController.getBoulderByNameAndArea)
+    .patch(protect.protect,boulderController.updateByNameAndArea)
+    .delete(protect.protect,boulderController.deleteByNameAndArea);
 router.route('/grade/:grade')
-    .get(boulderController.getAllGrade);
+    .get(protect.protect,boulderController.getAllGrade);
 router.route('/getAllWithBeta/')
-    .get(boulderController.getAllWithBeta);
+    .get(protect.protect,boulderController.getAllWithBeta);
 router.route('/getAscentType/:ascentType')
-    .get(boulderController.getAllAscentType);
+    .get(protect.protect,boulderController.getAllAscentType);
 
 module.exports = router;
