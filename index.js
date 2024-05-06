@@ -3,6 +3,8 @@ const mongoose = require("mongoose");//the db manager
 const redis = require("redis");
 const session = require("express-session");
 const RedisStore = require("connect-redis").default;
+const cors = require("cors");
+
 
 const { MONGO_USER, MONGO_PASSWORD, MONGO_IP, MONGO_PORT, SESSION_SECRET, REDIS_URL, REDIS_PORT } = require("./config/config");
 
@@ -36,6 +38,7 @@ setTimeout(connectWithRetry, 5000)}); //keep trying to connect every 5 seconds
 connectWithRetry();
 
 app.enable("trust proxy"); 
+app.use(cors({}));
 app.use(session({
   store: new RedisStore({ client: redisClient }),
   secret: SESSION_SECRET,
@@ -54,6 +57,9 @@ app.get("/api/v1/", (req, res) => {
   res.send("boulder?");
   console.log("sipi");
 });
+
+//different domains should be able to access the api
+
 
 app.use("/api/v1/users", userRouter);
 app.use("/api/v1/boulders", boulderRouter);
