@@ -4,6 +4,7 @@ const redis = require("redis");
 const session = require("express-session");
 const RedisStore = require("connect-redis").default;
 const cors = require("cors");
+const path = require("path");
 
 
 const { MONGO_USER, MONGO_PASSWORD, MONGO_IP, MONGO_PORT, SESSION_SECRET, REDIS_URL, REDIS_PORT } = require("./config/config");
@@ -65,6 +66,8 @@ app.use("/api/v1/users", userRouter);
 app.use("/api/v1/boulders", boulderRouter);
 
 const port = process.env.PORT || 3000; // Port 3000 is the default port
+
+// app.use(express.static(path.join(__dirname, "public")));
 
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
