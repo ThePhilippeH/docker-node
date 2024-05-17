@@ -14,7 +14,6 @@ let redisClient = redis.createClient(
   {
     host: REDIS_URL,
     port: REDIS_PORT,
-    legacyMode: true
   }
 );
 
@@ -30,7 +29,7 @@ const connectWithRetry = () => {
   //connect to the db
 mongoose
 .connect(mongoURL, {})
-.then(()=>{console.log("connected to the DB")})
+.then(()=>{console.log(`successfully connected to the DB on ${MONGO_PORT}`)})
 .catch((e)=>{console.log("error connecting to the DB", e)
 setTimeout(connectWithRetry, 5000)}); //keep trying to connect every 5 seconds
 }
@@ -50,13 +49,14 @@ app.use(session({
     httpOnly: true,
     maxAge: 6000000,
   },
-}));
+}
+, console.log(`Redis connected on port ${REDIS_PORT}`)));
 
 app.use(express.json());
 
 app.get("/api/v1/", (req, res) => {
   res.send("boulder?");
-  console.log("sipi");
+  console.log("SIPI");
 });
 
 //different domains should be able to access the api
@@ -65,7 +65,7 @@ app.get("/api/v1/", (req, res) => {
 app.use("/api/v1/users", userRouter);
 app.use("/api/v1/boulders", boulderRouter);
 
-const port = process.env.PORT || 3000; // Port 3000 is the default port
+const port = process.env.PORT || 5; // Port 3000 is the default port
 
 // app.use(express.static(path.join(__dirname, "public")));
 
