@@ -19,7 +19,7 @@ const boulderSchema = new mongoose.Schema({
     },
     ascentType: {
         type: String,
-        enum: ['redpoint', 'flash','not sent' ],
+        enum: ['redpoint', 'flash','not sent'],
         required: [true, 'Please provide an ascent type'],
     },
     betaLink: {
@@ -35,7 +35,7 @@ const boulderSchema = new mongoose.Schema({
             },
             message: 'Please provide a valid URL for the beta link'
         }
-    },  
+    },
 });
 
 module.exports = mongoose.model('Boulder', boulderSchema);

@@ -1,9 +1,6 @@
 version: "3"
 #production environment
 services:
-  nginx:
-    ports:
-      - 80:80"
   node-app:
     build:
       context: .
@@ -11,4 +8,4 @@ services:
         NODE_ENV: production
     environment:
       - NODE_ENV=production
-    command: node index.js
+    command: npm run start
